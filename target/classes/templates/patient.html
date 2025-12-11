@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head('HMS - Patients')}"></head>
+
+<body>
+
+    <div th:replace="~{fragments/layout :: header}"></div>
+
+    <main>
+        <div class="card">
+            <h2>Add New Patient</h2>
+            <form th:action="@{/patients}" th:object="${newPatient}" method="post">
+                <label>Name:</label>
+                <input type="text" th:field="*{name}" required placeholder="Enter Full Name">
+
+                <label>Age:</label>
+                <input type="number" th:field="*{age}" required>
+
+                <label>Gender:</label>
+                <select th:field="*{gender}">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <label>Phone:</label>
+                <input type="tel" th:field="*{phone}" placeholder="123-456-7890">
+
+                <label>Medical History:</label>
+                <textarea th:field="*{medicalHistory}" rows="3"></textarea>
+
+                <button type="submit">Register Patient</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Registered Patients</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Phone</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="patient : ${patients}">
+                        <td th:text="${patient.name}">John Doe</td>
+                        <td th:text="${patient.age}">30</td>
+                        <td th:text="${patient.phone}">555-5555</td>
+                        <td><a href="#" style="color: var(--primary-color);">View</a></td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(patients)}">
+                        <td colspan="4" style="text-align:center;">No patients found.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <div th:replace="~{fragments/layout :: script}"></div>
+
+</body>
+
+</html>

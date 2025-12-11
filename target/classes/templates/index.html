@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head('HMS - Home')}"></head>
+
+<body>
+
+    <div th:replace="~{fragments/layout :: header}"></div>
+
+    <main>
+        <div class="card" style="text-align: center;">
+            <h2>Welcome to Hospital Management System</h2>
+            <p>Manage Patients, Doctors, and Appointments seamlessly.</p>
+            <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem;">
+                <a th:href="@{/patients}"><button style="width: 100%;">Manage Patients</button></a>
+                <a th:href="@{/doctors}"><button style="width: 100%;">Manage Doctors</button></a>
+                <a th:href="@{/appointments}"><button style="width: 100%;">Book Appointment</button></a>
+            </div>
+        </div>
+    </main>
+
+    <div th:replace="~{fragments/layout :: script}"></div>
+
+</body>
+
+</html>

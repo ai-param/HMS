@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head('HMS - Appointments')}"></head>
+
+<body>
+
+    <div th:replace="~{fragments/layout :: header}"></div>
+
+    <main>
+        <div class="card">
+            <h2>Book Appointment</h2>
+            <form th:action="@{/appointments}" th:object="${newAppointment}" method="post">
+                <label>Patient:</label>
+                <select th:field="*{patient}">
+                    <option th:each="p : ${patients}" th:value="${p.id}" th:text="${p.name}"></option>
+                </select>
+                <div th:if="${#lists.isEmpty(patients)}" style="color: red; font-size: 0.9rem;">
+                    No patients found. Please add a patient first.
+                </div>
+
+                <label>Doctor:</label>
+                <select th:field="*{doctor}">
+                    <option th:each="d : ${doctors}" th:value="${d.id}"
+                        th:text="${d.name} + ' (' + ${d.specialization} + ')'"></option>
+                </select>
+                <div th:if="${#lists.isEmpty(doctors)}" style="color: red; font-size: 0.9rem;">
+                    No doctors found. Please add a doctor first.
+                </div>
+
+                <label>Date & Time:</label>
+                <input type="datetime-local" th:field="*{appointmentTime}" required>
+
+                <label>Notes:</label>
+                <textarea th:field="*{notes}" rows="2"></textarea>
+
+                <button type="submit" th:disabled="${#lists.isEmpty(patients) or #lists.isEmpty(doctors)}">Book
+                    Now</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Appointments</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Patient</th>
+                        <th>Doctor</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="appt : ${appointments}">
+                        <td th:text="${#temporals.format(appt.appointmentTime, 'yyyy-MM-dd HH:mm')}"></td>
+                        <td th:text="${appt.patient.name}"></td>
+                        <td th:text="${appt.doctor.name}"></td>
+                        <td th:text="${appt.status}">Scheduled</td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(appointments)}">
+                        <td colspan="4" style="text-align:center;">No appointments booked.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <div th:replace="~{fragments/layout :: script}"></div>
+
+</body>
+
+</html>
