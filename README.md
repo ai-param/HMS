@@ -46,3 +46,7 @@ To view the H2 database console, visit [http://localhost:8080/h2-console](http:/
 - JDBC URL: `jdbc:h2:file:./data/hmsdb`
 - User: `sa`
 - Password: `password`
+
+## Deployment
+For detailed deployment instructions (Render, Docker, etc.), please see [deployment.md](file:///home/param/.gemini/antigravity/brain/fc3dafc9-55f5-4e26-b506-8502c79a5a7d/deployment.md).
+
