@@ -7,59 +7,139 @@
 
     <div th:replace="~{fragments/layout :: header}"></div>
 
-    <main>
-        <div class="card">
-            <h2>Add New Patient</h2>
-            <form th:action="@{/patients}" th:object="${newPatient}" method="post">
-                <label>Name:</label>
-                <input type="text" th:field="*{name}" required placeholder="Enter Full Name">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 animate-[fadeIn_0.5s_ease-out]">
 
-                <label>Age:</label>
-                <input type="number" th:field="*{age}" required>
-
-                <label>Gender:</label>
-                <select th:field="*{gender}">
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                </select>
-
-                <label>Phone:</label>
-                <input type="tel" th:field="*{phone}" placeholder="123-456-7890">
-
-                <label>Medical History:</label>
-                <textarea th:field="*{medicalHistory}" rows="3"></textarea>
-
-                <button type="submit">Register Patient</button>
-            </form>
+        <div class="flex justify-between items-end">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">Patients</h1>
+                <p class="mt-1 text-sm text-gray-500">Manage patient records and registration.</p>
+            </div>
         </div>
 
-        <div class="card">
-            <h2>Registered Patients</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Age</th>
-                        <th>Phone</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="patient : ${patients}">
-                        <td th:text="${patient.name}">John Doe</td>
-                        <td th:text="${patient.age}">30</td>
-                        <td th:text="${patient.phone}">555-5555</td>
-                        <td><a href="#" style="color: var(--primary-color);">View</a></td>
-                    </tr>
-                    <tr th:if="${#lists.isEmpty(patients)}">
-                        <td colspan="4" style="text-align:center;">No patients found.</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Form Section -->
+            <div class="lg:col-span-1">
+                <div class="bg-white shadow rounded-lg px-4 py-5 sm:p-6 border border-gray-100 sticky top-24">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Register New Patient</h3>
+                    <form th:action="@{/patients}" th:object="${newPatient}" method="post" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Full Name</label>
+                            <input type="text" th:field="*{name}" required placeholder="e.g. John Doe"
+                                class="mt-1 block w-full rounded-md border-gray-300 bg-gray-50 border shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm px-3 py-2">
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Age</label>
+                                <input type="number" th:field="*{age}" required
+                                    class="mt-1 block w-full rounded-md border-gray-300 bg-gray-50 border shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm px-3 py-2">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Gender</label>
+                                <select th:field="*{gender}"
+                                    class="mt-1 block w-full rounded-md border-gray-300 bg-gray-50 border shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm px-3 py-2">
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Phone</label>
+                            <input type="tel" th:field="*{phone}" placeholder="123-456-7890"
+                                class="mt-1 block w-full rounded-md border-gray-300 bg-gray-50 border shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm px-3 py-2">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Medical History</label>
+                            <textarea th:field="*{medicalHistory}" rows="3"
+                                class="mt-1 block w-full rounded-md border-gray-300 bg-gray-50 border shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm px-3 py-2"></textarea>
+                        </div>
+
+                        <button type="submit"
+                            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors">
+                            Register Patient
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- List Section -->
+            <div class="lg:col-span-2">
+                <div class="bg-white shadow overflow-hidden sm:rounded-lg border border-gray-100">
+                    <div
+                        class="px-4 py-5 sm:px-6 flex justify-between items-center bg-gray-50 border-b border-gray-200">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900">Registered Patients</h3>
+                        <span
+                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800"
+                            th:text="${patients.size()} + ' Total'">
+                            Count
+                        </span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Name</th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Age/Gender</th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Phone</th>
+                                    <th scope="col" class="relative px-6 py-3">
+                                        <span class="sr-only">Action</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr th:each="patient : ${patients}" class="hover:bg-gray-50 transition-colors">
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10">
+                                                <span
+                                                    class="h-10 w-10 rounded-full bg-primary-100 flex items-center justify-center text-primary-600 font-bold">
+                                                    <span th:text="${#strings.substring(patient.name,0,1)}">A</span>
+                                                </span>
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900"
+                                                    th:text="${patient.name}">John Doe</div>
+                                                <div class="text-xs text-gray-500 truncate max-w-[150px]"
+                                                    th:text="${patient.medicalHistory}">History</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900" th:text="${patient.age} + ' yrs'">30 yrs
+                                        </div>
+                                        <div class="text-sm text-gray-500" th:text="${patient.gender}">Male</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                                        th:text="${patient.phone}">
+                                        555-1234
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                        <a href="#" class="text-primary-600 hover:text-primary-900">Edit</a>
+                                    </td>
+                                </tr>
+                                <tr th:if="${#lists.isEmpty(patients)}">
+                                    <td colspan="4" class="px-6 py-10 text-center text-sm text-gray-500 bg-gray-50">
+                                        No patients found. Get started by registering one.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
+    <div th:replace="~{fragments/layout :: footer}"></div>
     <div th:replace="~{fragments/layout :: script}"></div>
 
 </body>

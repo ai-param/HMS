@@ -7,47 +7,116 @@
 
     <div th:replace="~{fragments/layout :: header}"></div>
 
-    <main>
-        <div class="card">
-            <h2>Add New Doctor</h2>
-            <form th:action="@{/doctors}" th:object="${newDoctor}" method="post">
-                <label>Name:</label>
-                <input type="text" th:field="*{name}" required placeholder="Dr. Name">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 animate-[fadeIn_0.5s_ease-out]">
 
-                <label>Specialization:</label>
-                <input type="text" th:field="*{specialization}" required placeholder="e.g. Cardiologist">
-
-                <label>Email:</label>
-                <input type="email" th:field="*{email}" placeholder="doctor@hospital.com">
-
-                <button type="submit">Register Doctor</button>
-            </form>
+        <div class="flex justify-between items-end">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">Doctors</h1>
+                <p class="mt-1 text-sm text-gray-500">Manage medical staff and specialists.</p>
+            </div>
         </div>
 
-        <div class="card">
-            <h2>Doctors List</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Specialization</th>
-                        <th>Email</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="doctor : ${doctors}">
-                        <td th:text="${doctor.name}">Dr. Smith</td>
-                        <td th:text="${doctor.specialization}">General</td>
-                        <td th:text="${doctor.email}">mail@example.com</td>
-                    </tr>
-                    <tr th:if="${#lists.isEmpty(doctors)}">
-                        <td colspan="3" style="text-align:center;">No doctors available.</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Form Section -->
+            <div class="lg:col-span-1">
+                <div class="bg-white shadow rounded-lg px-4 py-5 sm:p-6 border border-gray-100 sticky top-24">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Add New Doctor</h3>
+                    <form th:action="@{/doctors}" th:object="${newDoctor}" method="post" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Name</label>
+                            <input type="text" th:field="*{name}" required placeholder="Dr. Name"
+                                class="mt-1 block w-full rounded-md border-gray-300 bg-gray-50 border shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm px-3 py-2">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Specialization</label>
+                            <input type="text" th:field="*{specialization}" required placeholder="e.g. Cardiologist"
+                                class="mt-1 block w-full rounded-md border-gray-300 bg-gray-50 border shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm px-3 py-2">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Email</label>
+                            <input type="email" th:field="*{email}" placeholder="doctor@hospital.com"
+                                class="mt-1 block w-full rounded-md border-gray-300 bg-gray-50 border shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm px-3 py-2">
+                        </div>
+
+                        <button type="submit"
+                            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors">
+                            Add Doctor
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- List Section -->
+            <div class="lg:col-span-2">
+                <div class="bg-white shadow overflow-hidden sm:rounded-lg border border-gray-100">
+                    <div
+                        class="px-4 py-5 sm:px-6 flex justify-between items-center bg-gray-50 border-b border-gray-200">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900">Hospital Staff</h3>
+                        <span
+                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800"
+                            th:text="${doctors.size()} + ' Total'">
+                            Count
+                        </span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Doctor</th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Specialization</th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Email</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr th:each="doctor : ${doctors}" class="hover:bg-gray-50 transition-colors">
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10">
+                                                <span
+                                                    class="h-10 w-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold">
+                                                    <span th:text="${#strings.substring(doctor.name, 0, 1)}">D</span>
+                                                </span>
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900" th:text="${doctor.name}">
+                                                    Dr. Smith</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span
+                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
+                                            th:text="${doctor.specialization}">
+                                            Cardiologist
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                                        th:text="${doctor.email}">
+                                        mail@example.com
+                                    </td>
+                                </tr>
+                                <tr th:if="${#lists.isEmpty(doctors)}">
+                                    <td colspan="3" class="px-6 py-10 text-center text-sm text-gray-500 bg-gray-50">
+                                        No doctors available. Add a new doctor to the team.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
+    <div th:replace="~{fragments/layout :: footer}"></div>
     <div th:replace="~{fragments/layout :: script}"></div>
 
 </body>

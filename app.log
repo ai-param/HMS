@@ -73,3 +73,6 @@ WARNING: Restricted methods will be blocked in a future release unless native ac
 2025-12-11T20:22:05.473+05:30  INFO 261494 --- [hms] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2025-12-11T20:22:05.475+05:30  INFO 261494 --- [hms] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2025-12-11T20:22:05.478+05:30  INFO 261494 --- [hms] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2025-12-12T10:59:10.589+05:30  INFO 261494 --- [hms] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-12T10:59:10.645+05:30  INFO 261494 --- [hms] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-12-12T10:59:10.667+05:30  INFO 261494 --- [hms] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

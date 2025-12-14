@@ -1,24 +1,123 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{fragments/layout :: head('HMS - Home')}"></head>
+<head th:replace="~{fragments/layout :: head('HMS - Dashboard')}"></head>
 
 <body>
 
     <div th:replace="~{fragments/layout :: header}"></div>
 
-    <main>
-        <div class="card" style="text-align: center;">
-            <h2>Welcome to Hospital Management System</h2>
-            <p>Manage Patients, Doctors, and Appointments seamlessly.</p>
-            <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem;">
-                <a th:href="@{/patients}"><button style="width: 100%;">Manage Patients</button></a>
-                <a th:href="@{/doctors}"><button style="width: 100%;">Manage Doctors</button></a>
-                <a th:href="@{/appointments}"><button style="width: 100%;">Book Appointment</button></a>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl mb-4">
+                Hospital <span class="text-primary-600">Management</span> System
+            </h1>
+            <p class="max-w-2xl mx-auto text-xl text-gray-500">
+                Streamline operations, manage patients, and schedule appointments with ease.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <!-- Patient Card -->
+            <div
+                class="relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary-500 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 overflow-hidden">
+                <div>
+                    <span class="rounded-lg inline-flex p-3 bg-blue-50 text-blue-600 ring-4 ring-white">
+                        <span class="text-2xl">👤</span>
+                    </span>
+                </div>
+                <div class="mt-8">
+                    <h3 class="text-lg font-semibold text-gray-900">
+                        <a th:href="@{/patients}" class="focus:outline-none">
+                            <span class="absolute inset-0" aria-hidden="true"></span>
+                            Patients
+                        </a>
+                    </h3>
+                    <p class="mt-2 text-sm text-gray-500">
+                        Register new patients, view history, and manage records efficiently.
+                    </p>
+                </div>
+                <span class="pointer-events-none absolute top-6 right-6 text-gray-300 group-hover:text-gray-400"
+                    aria-hidden="true">
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z">
+                        </path>
+                    </svg>
+                </span>
+            </div>
+
+            <!-- Doctor Card -->
+            <div
+                class="relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary-500 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 overflow-hidden">
+                <div>
+                    <span class="rounded-lg inline-flex p-3 bg-purple-50 text-purple-600 ring-4 ring-white">
+                        <span class="text-2xl">👨‍⚕️</span>
+                    </span>
+                </div>
+                <div class="mt-8">
+                    <h3 class="text-lg font-semibold text-gray-900">
+                        <a th:href="@{/doctors}" class="focus:outline-none">
+                            <span class="absolute inset-0" aria-hidden="true"></span>
+                            Doctors
+                        </a>
+                    </h3>
+                    <p class="mt-2 text-sm text-gray-500">
+                        Manage medical staff, specialized profiles, and availability.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Appointment Card -->
+            <div
+                class="relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary-500 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 overflow-hidden">
+                <div>
+                    <span class="rounded-lg inline-flex p-3 bg-teal-50 text-teal-600 ring-4 ring-white">
+                        <span class="text-2xl">📅</span>
+                    </span>
+                </div>
+                <div class="mt-8">
+                    <h3 class="text-lg font-semibold text-gray-900">
+                        <a th:href="@{/appointments}" class="focus:outline-none">
+                            <span class="absolute inset-0" aria-hidden="true"></span>
+                            Appointments
+                        </a>
+                    </h3>
+                    <p class="mt-2 text-sm text-gray-500">
+                        Schedule new appointments, view upcoming sessions, and manage calendar.
+                    </p>
+                </div>
             </div>
         </div>
+
+        <!-- Quick Stats Section -->
+        <div class="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div class="bg-white overflow-hidden shadow rounded-lg border border-gray-100">
+                <div class="px-4 py-5 sm:p-6">
+                    <div class="text-sm font-medium text-gray-500 truncate">Total Visitors</div>
+                    <div class="mt-1 text-3xl font-semibold text-gray-900" th:text="${totalVisitors}">0</div>
+                </div>
+            </div>
+            <div class="bg-white overflow-hidden shadow rounded-lg border border-gray-100">
+                <div class="px-4 py-5 sm:p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <span class="flex h-3 w-3 relative">
+                                <span
+                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                            </span>
+                        </div>
+                        <div class="ml-3 text-sm font-medium text-gray-500 truncate">Live Visitors</div>
+                    </div>
+                    <div class="mt-1 text-3xl font-semibold text-gray-900" th:text="${liveVisitors}">0</div>
+                </div>
+            </div>
+        </div>
+
     </main>
 
+    <div th:replace="~{fragments/layout :: footer}"></div>
     <div th:replace="~{fragments/layout :: script}"></div>
 
 </body>
