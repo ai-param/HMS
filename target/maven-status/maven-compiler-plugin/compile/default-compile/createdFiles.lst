@@ -1,9 +1,9 @@
+com/hms/entity/Doctor.class
 com/hms/repository/PatientRepository.class
+com/hms/entity/Appointment.class
 com/hms/repository/DoctorRepository.class
 com/hms/repository/AppointmentRepository.class
-com/hms/entity/Patient.class
-com/hms/entity/Doctor.class
-com/hms/entity/Appointment.class
 com/hms/HmsApplication.class
+com/hms/entity/Patient.class
 com/hms/controller/HomeController.class
 com/hms/service/HmsService.class
